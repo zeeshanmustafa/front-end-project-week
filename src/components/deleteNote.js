@@ -22,6 +22,7 @@ class DeleteNote extends Component {
   }
 
   render() {
+    console.log("id of the note to be deleted:",this.props.match.params);
     return (
       <div>
         <div className='header-link' onClick={this.toggle}>{this.props.buttonLabel}</div>
@@ -31,7 +32,7 @@ class DeleteNote extends Component {
           </ModalBody>
           <ModalFooter className='d-flex justify-content-center'>
             <Button className='w-50' color="danger" onClick={() => {
-                this.props.deleteNote(this.props.id);
+                this.props.deleteNote(this.props.match.params.id);
                 this.props.history.push(`/${uid}/displayNotes`);
             }}>Delete</Button>{' '}
             <Button className='w-50' color="primary" onClick={this.toggle}>No</Button>

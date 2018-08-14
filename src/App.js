@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/:uid/displayNotes",
     sidebar: () => <Button>View Notes</Button>,
-    main: () => <DisplayNotesList />
+    main: (props) => <DisplayNotesList {...props}/>
   },
   {
     path: "/logout",
@@ -35,8 +35,8 @@ const routes = [
     )
   },
   {
-    path: "/viewNote/:id",
-    main: Note
+    path: "/note/:id",
+    main:(props) =>  <Note {...props}/>
   },
   {
     path: "/editNote/:id",

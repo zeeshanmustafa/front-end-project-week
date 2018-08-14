@@ -6,7 +6,9 @@ import {
   USER_REGISTERED
 } from "../actions";
 
-export default (state = { authed: false, user: {} }, action) => {
+const token = window.localStorage.getItem("token");
+
+export default (state = { authed: token ? true: false, user: {} }, action) => {
   switch (action.type) {
     case USER_AUTHENTICATED:
       return { ...state, authed: true };

@@ -26,7 +26,7 @@ export default function notes(state = initialState, action) {
     case actions.GET_NOTES:
       return {
         ...state,
-        notes: action.notes
+        notes: action.payload
       };
     default:
       return state;

@@ -11,14 +11,16 @@ function mapStateToProps(state) {
 
 class Note extends Component {
     render() {
-        const note = this.props.notes.filter(
-            note => note.id === (this.props.id)
+        console.log(this.props.notes.notes);
+        const note = this.props.notes.notes.filter(
+            note =>note._id === this.props.match.params.id
         )[0];
+        console.log(note);
         return(
             <Container>
                 <Row className='d-flex justify-content-end mt-3 mr-3'>
-                    <Link className='header-link mr-3' to ={`/editNote/${note.id}`}>Edit</Link>{' '}
-                    <DeleteNote buttonLabel='Delete' id={note.id}/>
+                    <Link className='header-link mr-3' to ={`/editNote/${note._id}`}>Edit</Link>{' '}
+                    <DeleteNote buttonLabel='Delete' id={note._id}/>
                 </Row>
                 <Row className='mt-5'>
                     <h3 className='header w-100'>

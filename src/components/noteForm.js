@@ -30,7 +30,7 @@ class NoteForm extends Component {
     
     submitNote = (event) => {
         event.preventDefault();
-        if (this.state.newNote.id === undefined) {
+        if (this.state.newNote._id === undefined) {
             this.props.addNote(this.state.newNote);
         }
         else {
@@ -44,9 +44,10 @@ class NoteForm extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id !== undefined) {
+            console.log("updating a note");
           this.setState({
-            newNote: this.props.notes.filter(
-              note => (this.props.match.params.id === note.id)
+            newNote: this.props.notes.notes.filter(
+              note => (this.props.match.params.id === note._id)
             )[0]
           });
         }
@@ -54,7 +55,7 @@ class NoteForm extends Component {
 
     render () {
         let createNote= this.state.newNote;
-        if (this.state.newNote.id === undefined) createNote = this.state.newNote._id;
+        if (this.state.newNote._id === undefined) createNote = this.state.newNote._id;
         console.log(this.state.newNote._id);
         return (
         <Container className="my-5">

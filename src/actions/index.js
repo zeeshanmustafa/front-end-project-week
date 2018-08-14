@@ -30,6 +30,7 @@ export const register = (
     }
     axios
       .post("https://serverlambda.herokuapp.com/", {
+        // .post("http://lo1calhost:5000/",{
         username,
         password,
         firstName,
@@ -55,6 +56,7 @@ export const login = (username, password, history) => {
   return dispatch => {
     axios
       .post("https://serverlambda.herokuapp.com/login", { username, password })
+      // .post("http://localhost:5000/login", { username, password })
       .then(response => {
         console.log("data:", response.data, "response:", response);
         const token = response.data.token;
@@ -93,7 +95,8 @@ export const addNote = note => {
   return dispatch => {
     axios
       .post(`https://serverlambda.herokuapp.com/${uid}/createNote`, note, {
-        headers: { Authorization: token }
+        // .post(`http://localhost:5000/${uid}/createNote`, note, {
+        headers: { 'Authorization': "Bearer " + token }
       })
       .then(({ note }) => {
         dispatch({
@@ -112,12 +115,15 @@ export const GET_NOTES = "GET_NOTES";
 export const getNotes = () => {
   const token = window.localStorage.getItem("token");
   const uid = window.localStorage.getItem("uid");
+  console.log("In the getNotes function, printing the uid: ", uid);
   return dispatch => {
     axios
-      .post(`https://serverlambda.herokuapp.com/${uid}/displayNotes`, {
-        headers: { Authorization: token }
+      .get(`https://serverlambda.herokuapp.com/${uid}/displayNotes`, {
+      // .get(`http://localhost:5000/${uid}/displayNotes`, {
+        headers: { 'Authorization': "Bearer " + token }
       })
       .then(({ data }) => {
+        console.log("data fromt the get request in getNotes:", data);
         dispatch({
           type: GET_NOTES,
           payload: data
@@ -134,11 +140,13 @@ export const EDIT_NOTE = "EDIT_NOTE";
 export const editNote = note => {
   const token = window.localStorage.getItem("token");
   const uid = window.localStorage.getItem("uid");
+  console.log("Note(143):",note);
   return dispatch => {
-    const id = note.data._id;
+    const id = note._id;
     axios
-      .post(`https://serverlambda.herokuapp.com/editNote/${id}`, note, {
-        headers: { Authorization: token }
+      .put(`https://serverlambda.herokuapp.com/editNote/${id}`, note, {
+        // .put(`http://localhost:5000/editNote/${id}`, note, {
+        headers: { 'Authorization': 'Bearer ' + token }
       })
       .then(({ data }) => {
         dispatch({
@@ -161,7 +169,8 @@ export const deleteNote = id => {
   return dispatch => {
     axios
       .delete(`https://serverlambda.herokuapp.com/deleteNote/${id}`, {
-        headers: { Authorization: token }
+        // .delete(`http://localhost:5000/deleteNote/${id}`, {
+        headers: { 'Authorization': "Bearer " + token }
       })
       .then(({ data }) => {
         dispatch({

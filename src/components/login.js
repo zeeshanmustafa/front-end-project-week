@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 class SignIn extends Component {
   state = {
-    authed: false,
+    // authed: false,
     username: "",
     password: "",
   };
